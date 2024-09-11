@@ -1,0 +1,30 @@
+version: '3.8' # ou une version compatible avec Docker que vous utilisez
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile  # Spécifiez le chemin vers votre Dockerfile
+    ports:
+      - "9002:5000"  # Redirige le port 5000 pour l'API backend
+    volumes:
+      - ./backend:/app  # Monte le dossier local dans le conteneur
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile  # Spécifiez le Dockerfile pour le frontend
+    ports:
+      - "3000:3000"  # Redirige le port 3000 pour l'application frontend
+    volumes:
+      - ./frontend:/app  # Monte le dossier local dans le conteneur
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf  # Spécifiez votre fichier de configuration Nginx
+    ports:
+      - "5432:5432"  # Redirige le port 80 pour servir l'application
+
+volumes:
+  db_data:
