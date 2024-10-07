@@ -1,0 +1,42 @@
+/* App.css */
+
+/* Styles pour le conteneur principal de l'application */
+.app-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #141414; /* Fond sombre, comme Netflix */
+    color: white; /* Texte en blanc */
+    font-family: 'Arial', sans-serif; /* Police générale */
+}
+
+/* Styles pour les en-têtes */
+.app-header {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+/* Styles pour les boutons */
+.button {
+    padding: 10px 20px;
+    background-color: #e50914; /* Rouge Netflix */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #f40612; /* Couleur légèrement plus foncée au survol */
+}
+
+/* Styles pour le contenu principal */
+.app-content {
+    width: 80%; /* Largeur du contenu principal */
+    margin: 0 auto; /* Centrer le contenu */
+    text-align: center; /* Centrer le texte */
+}
+

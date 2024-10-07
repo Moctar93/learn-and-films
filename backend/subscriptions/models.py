@@ -11,7 +11,7 @@ class Subscription(models.Model):
 
 class UserSubscription(models.Model):
     user = models.OneToOneField('auth.User', on_delete=models.CASCADE)
-    plan = models.CharField(max_length=255)
+    plan = models.CharField(max_length=255
     subscription = models.ForeignKey(Subscription, on_delete=models.SET_NULL, null=True)
     start_date = models.DateTimeField(auto_now_add=True)
     end_date = models.DateTimeField()

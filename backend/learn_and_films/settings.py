@@ -11,6 +11,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'subscriptions',
     # Ajoutez ici vos applications
 ]
 
@@ -26,7 +27,7 @@ MIDDLEWARE = [
 ]
 
 # URL du site
-ROOT_URLCONF = 'mysite.urls'
+ROOT_URLCONF = 'learn_and_films.urls'
 
 # Templates
 TEMPLATES = [
