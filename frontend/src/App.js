@@ -1,13 +1,18 @@
 import React from 'react';
-import './App.css';
+import './index.css'; // Import du fichier CSS
+import Header from './components/Header';
+import Home from './components/Home';
+import About from './components/About';
+import Footer from './components/Footer';
 
 function App() {
     return (
-        <div className="App">
-            <header className="App-header">
-                <h1>Learn and Films</h1>
-            </header>
-        </div>
+        <>
+            <Header />
+            <Home />
+            <About />
+            <Footer />
+        </>
     );
 }
 

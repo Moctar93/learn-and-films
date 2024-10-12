@@ -1,0 +1,45 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "learn and films is a educative project with advertising movies",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "react-scripts start",
+    "build": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/github.com/MOUKIANA-jordy.git"
+  },
+  "keywords": [
+    "jordy"
+  ],
+  "author": "Jordy, Moctar, Loîc",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/github.com/MOUKIANA-jordy/issues"
+  },
+  "homepage": "https://github.com/github.com/MOUKIANA-jordy#readme",
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-script": "^2.0.5",
+    "react-scripts": "^5.0.1"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
+  }
+}
