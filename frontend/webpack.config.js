@@ -1,33 +1,41 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.js', // Point d'entrée de votre application
-  output: {
-    path: path.resolve(__dirname, 'dist'), // Dossier de sortie
-    filename: 'bundle.js', // Nom du fichier de sortie
-  },
-  module: {
-    rules: [
-      {
-        test: /\.js$/, // Règle pour les fichiers JavaScript
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader', // Utilisation de Babel pour transpiler le JavaScript
-        },
-      },
-      {
-        test: /\.css$/, // Règle pour les fichiers CSS
-        use: ['style-loader', 'css-loader'], // Chargeurs pour CSS
-      },
+    entry: './src/index.js',
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'bundle.js',
+        publicPath: '/',
+    },
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                },
+            },
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader'],
+            },
+        ],
+    },
+    resolve: {
+        extensions: ['.js'],
+    },
+    devServer: {
+        contentBase: path.join(__dirname, 'dist'),
+        compress: true,
+        port: 3003,
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: './dist/index.html', // Le fichier HTML d'origine
+            filename: 'index.html', // Le nom du fichier de sortie
+        }),
     ],
-  },
-  resolve: {
-    extensions: ['.js', '.jsx'], // Extensions que Webpack peut résoudre
-  },
-  devServer: {
-    contentBase: path.join(__dirname, 'public'), // Dossier pour le serveur de développement
-    compress: true,
-    port: 3000,
-  },
 };
 
