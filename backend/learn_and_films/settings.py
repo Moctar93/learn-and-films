@@ -33,7 +33,7 @@ ROOT_URLCONF = 'learn_and_films.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'frontend/src/pages')],  # Chemin vers le dossier frontend
+        'DIRS': [os.path.join(BASE_DIR, 'frontend/public/')],  # Chemin vers le dossier frontend
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -50,7 +50,7 @@ TEMPLATES = [
 STATIC_URL = '/static/'
 
 # Chemin vers les fichiers statiques
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'front-end/src/static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'frontend/src/static')]
 
 # URL pour les fichiers media
 MEDIA_URL = '/media/'
