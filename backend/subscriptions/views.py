@@ -1,24 +1,14 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+# backend/subscriptions/views.py
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.views import APIView
+from .serializers import UserSerializer
 
-from rest_framework import viewsets
-from .models import Subscription, UserSubscription, Transaction
-from .serializers import SubscriptionSerializer, UserSubscriptionSerializer, TransactionSerializer
-
-from django.http import HttpResponse
-
-def index(request):
-    return HttpResponse("Page d'accueil")
-
-class SubscriptionViewSet(viewsets.ModelViewSet):
-    queryset = Subscription.objects.all()
-    serializer_class = SubscriptionSerializer
-
-class UserSubscriptionViewSet(viewsets.ModelViewSet):
-    queryset = UserSubscription.objects.all()
-    serializer_class = UserSubscriptionSerializer
-
-class TransactionViewSet(viewsets.ModelViewSet):
-    queryset = Transaction.objects.all()
-    serializer_class = TransactionSerializer
+class RegisterView(APIView):
+    def post(self, request):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'message': 'User registered successfully'}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

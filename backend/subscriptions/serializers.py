@@ -1,18 +1,18 @@
+from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Subscription, UserSubscription, Transaction
 
-class SubscriptionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Subscription
-        fields = '__all__'
+class UserSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True)
 
-class UserSubscriptionSerializer(serializers.ModelSerializer):
     class Meta:
-        model = UserSubscription
-        fields = '__all__'
+        model = User
+        fields = ['username', 'email', 'password']
 
-class TransactionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Transaction
-        fields = '__all__'
+    def create(self, validated_data):
+        user = User.objects.create_user(
+            username=validated_data['username'],
+            email=validated_data['email'],
+            password=validated_data['password']
+        )
+        return user
 

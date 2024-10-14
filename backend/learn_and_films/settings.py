@@ -71,3 +71,15 @@ SECRET_KEY = 'votre_cle_secrète'  # Changez ceci pour un vrai projet
 DEBUG = True
 ALLOWED_HOSTS = ['*']  # Ajoutez ici les hôtes autorisés pour la production
 
+
+INSTALLED_APPS = [
+    # autres apps
+    'corsheaders',
+]
+
+MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    # autres middleware
+]
+
+CORS_ALLOW_ALL_ORIGINS = True  # Permet toutes les origines
