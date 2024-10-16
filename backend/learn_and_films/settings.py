@@ -34,7 +34,7 @@ ROOT_URLCONF = 'learn_and_films.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'frontend/learn_and_films/public')],  # Chemin vers le dossier frontend
+        'DIRS': [os.path.join(BASE_DIR, '/home/moukiana/learn-and-films/frontend/learn_and_films/public')],  # Chemin vers le dossier frontend
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -51,7 +51,7 @@ TEMPLATES = [
 STATIC_URL = '/static/'
 
 # Chemin vers les fichiers statiques
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'frontend/learn_and_films/src/static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'learn_and_films/static')]
 
 # URL pour les fichiers media
 MEDIA_URL = '/media/'
