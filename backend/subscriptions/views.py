@@ -8,7 +8,7 @@ from .serializers import SubscriptionSerializer, UserSubscriptionSerializer, Tra
 from django.http import HttpResponse
 
 def index(request):
-    return HttpResponse("Page d'accueil")
+    return render(request, 'index.html')
 
 class SubscriptionViewSet(viewsets.ModelViewSet):
     queryset = Subscription.objects.all()

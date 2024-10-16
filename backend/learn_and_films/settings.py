@@ -34,7 +34,7 @@ ROOT_URLCONF = 'learn_and_films.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'frontend/learn_and_films/src')],  # Chemin vers le dossier frontend
+        'DIRS': [os.path.join(BASE_DIR, 'frontend/learn_and_films/public')],  # Chemin vers le dossier frontend
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
