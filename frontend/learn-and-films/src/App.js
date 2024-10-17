@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
+import logo from './images/logo.png';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -17,9 +18,14 @@ function App() {
 
   return (
     <div className="app">
-      {/* Header */}
+	  {/* Header avec le logo */}
       <header className="header">
-        <img src="learn-and-films/frontend/learn-and-films/src/images/logo.png" alt="Learn and Films Logo" className="logo" />
+        <img
+          src={logo}
+          alt="learn and films"
+          className="logo"
+        />
+
 	  <div class="search-bar">
             <form action="/search" method="GET">
                 <input type="text" name="query" placeholder="Rechercher..." required/>
