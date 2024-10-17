@@ -2,6 +2,7 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import index
 from . import views
+from .views import register
 
 router = DefaultRouter()
 router.register(r'subscriptions', views.SubscriptionViewSet)
@@ -11,5 +12,5 @@ router.register(r'transactions', views.TransactionViewSet)
 urlpatterns = [
     path('', index, name='index'),
      path('api/', include(router.urls)),
+      path('register/', register, name='register'),
 ]
-

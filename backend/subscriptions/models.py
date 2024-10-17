@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from datetime import timedelta, datetime
+from django.utils import timezone
 import uuid
 
 User = get_user_model()
@@ -28,7 +29,11 @@ class Subscription(models.Model):
         return self.get_name_display()
 
     def get_duration(self):
-        """Retourne la durée de l'abonnement sous forme de timedelta."""
+        """
+        Retourne la durée de l'abonnement sous forme de timedelta.
+        """
+        if self.duration_days <= 0:
+            raise ValueError("La durée de l'abonnement doit être supérieure à zéro.")
         return timedelta(days=self.duration_days)
 
 
@@ -38,6 +43,7 @@ class UserSubscription(models.Model):
     """
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     subscription = models.ForeignKey(Subscription, on_delete=models.SET_NULL, null=True)
+    email = models.EmailField(null=False, blank=False)
     start_date = models.DateTimeField(auto_now_add=True)
     end_date = models.DateTimeField()
     payment_date = models.DateTimeField(auto_now_add=True)
@@ -54,6 +60,10 @@ class UserSubscription(models.Model):
         """
         Surcharge de la méthode save pour gérer le réabonnement.
         """
+        
+        if self.subscription is None:
+            raise ValidationError("L'abonnement doit être défini avant de sauvegarder.")
+        
         # Vérifier si l'utilisateur a déjà un abonnement actif
         active_subscription = UserSubscription.objects.filter(
             user=self.user,
@@ -71,7 +81,7 @@ class UserSubscription(models.Model):
 
         else:
             # Si aucun abonnement actif, définir les dates normalement
-            self.end_date = self.start_date + self.subscription.get_duration()
+            self.end_date = timezone.now() + self.subscription.get_duration()
 
         # Sauvegarder le nouvel abonnement
         super(UserSubscription, self).save(*args, **kwargs)
