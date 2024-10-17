@@ -20,6 +20,13 @@ function App() {
       {/* Header */}
       <header className="header">
         <img src="learn-and-films/frontend/learn-and-films/src/images/logo.png" alt="Learn and Films Logo" className="logo" />
+	  <div class="search-bar">
+            <form action="/search" method="GET">
+                <input type="text" name="query" placeholder="Rechercher..." required/>
+                <button type="submit">Rechercher</button>
+            </form>
+	  </div>
+
         <nav>
           <ul className="nav-links">
             <li><a href="#">Accueil</a></li>
