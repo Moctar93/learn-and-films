@@ -19,7 +19,7 @@ function App() {
     <div className="app">
       {/* Header */}
       <header className="header">
-        <img src="https://via.placeholder.com/150x50" alt="Learn and Films Logo" className="logo" />
+        <img src="learn-and-films/frontend/learn-and-films/src/images/logo.png" alt="Learn and Films Logo" className="logo" />
         <nav>
           <ul className="nav-links">
             <li><a href="#">Accueil</a></li>
@@ -116,11 +116,40 @@ function App() {
 
       {/* Footer */}
       <footer className="footer">
-        <p>&copy; 2024 Learn and Films. Tous droits réservés.</p>
+            <div class="footer-section">
+                <h4>Nous contacter</h4>
+                <ul>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#support">Support</a></li>
+                    <li><a href="#email">Email</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Guide</h4>
+                <ul>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#help">Aide</a></li>
+                </ul>
+            </div>
+
+	   <div class="footer-section">
+                <h4>Confidentialités</h4>
+                <ul>
+                    <li><a href="#privacy">Politique de confidentialité</a></li>
+                    <li><a href="#terms">Conditions d'utilisation</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Informations légales</h4>
+                <ul>
+                    <li><a href="#legal">Mentions légales</a></li>
+                </ul>
+            </div>
       </footer>
+	  <p>&copy; 2024 Learn and Films. Tous droits réservés.</p>
     </div>
   );
 }
-
 export default App;
-
