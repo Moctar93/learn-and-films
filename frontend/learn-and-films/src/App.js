@@ -1,6 +1,16 @@
 import React, { useState } from 'react';
 import './App.css';
 import logo from './images/logo.png';
+import image1 from './images/image1.png';
+import image2 from './images/image2.png';
+import image3 from './images/image3.png';
+import image4 from './images/image4.png';
+import image5 from './images/image5.png';
+import image6 from './images/image6.png';
+import image7 from './images/image7.png';
+import image8 from './images/image8.png';
+import image9 from './images/image9.png';
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -28,8 +38,8 @@ function App() {
 
 	  <div class="search-bar">
             <form action="/search" method="GET">
-                <input type="text" name="query" placeholder="Rechercher..." required/>
-                <button type="submit">Rechercher</button>
+                <input class="input" type="text" name="query" placeholder="Rechercher..." required/>
+                <button class="search" type="submit">Rechercher</button>
             </form>
 	  </div>
 
@@ -74,15 +84,24 @@ function App() {
           <h2>Apprendre l'Histoire : La Révolution Française</h2>
           <div className="films-row">
             <div className="film">
-              <img src="https://via.placeholder.com/200x300" alt="Film 1" />
+	  <img
+          src={image1}
+          alt="film 1"
+	  />
               <p>Les Misérables (2019)</p>
             </div>
             <div className="film">
-              <img src="https://via.placeholder.com/200x300" alt="Film 2" />
+	  <img
+          src={image2}
+          alt="film 2"
+	  />
               <p>La Révolution Française (1989)</p>
             </div>
             <div className="film">
-              <img src="https://via.placeholder.com/200x300" alt="Film 3" />
+	  <img
+          src={image3}
+          alt="film 3"
+	  />
               <p>Marie-Antoinette (2006)</p>
             </div>
           </div>
@@ -93,15 +112,25 @@ function App() {
           <h2>Introduction à l'Astronomie</h2>
           <div className="films-row">
             <div className="film">
-              <img src="https://via.placeholder.com/200x300" alt="Film 1" />
+	  <img
+          src={image4}
+          alt="film 4"
+	  />
+              <p>Cosmos: A Spacetime Odyssey (2014)</p>
               <p>Interstellar (2014)</p>
             </div>
             <div className="film">
-              <img src="https://via.placeholder.com/200x300" alt="Film 2" />
+	  <img
+          src={image5}
+          alt="film 5"
+          />
               <p>Cosmos: A Spacetime Odyssey (2014)</p>
             </div>
             <div className="film">
-              <img src="https://via.placeholder.com/200x300" alt="Film 3" />
+	  <img
+          src={image6}
+          alt="film 6"
+          />
               <p>The Martian (2015)</p>
             </div>
           </div>
@@ -112,15 +141,24 @@ function App() {
           <h2>Art et Culture : L'art Moderne</h2>
           <div className="films-row">
             <div className="film">
-              <img src="https://via.placeholder.com/200x300" alt="Film 1" />
+	  <img
+          src={image7}
+          alt="film 7"
+          />
               <p>Frida (2002)</p>
             </div>
             <div className="film">
-              <img src="https://via.placeholder.com/200x300" alt="Film 2" />
+	  <img
+          src={image8}
+          alt="film 8"
+          />
               <p>Pollock (2000)</p>
             </div>
             <div className="film">
-              <img src="https://via.placeholder.com/200x300" alt="Film 3" />
+	  <img
+          src={image9}
+          alt="film 9"
+          />
               <p>The Picasso Legacy (2016)</p>
             </div>
           </div>
@@ -161,7 +199,7 @@ function App() {
                 </ul>
             </div>
       </footer>
-	  <p>&copy; 2024 Learn and Films. Tous droits réservés.</p>
+          <p class="copyright">&copy; 2024 Learn and Films. Tous droits réservés.</p>
     </div>
   );
 }
