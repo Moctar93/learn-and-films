@@ -10,6 +10,7 @@ import image6 from './images/image6.png';
 import image7 from './images/image7.png';
 import image8 from './images/image8.png';
 import image9 from './images/image9.png';
+import imageA from './images/imageA.png';
 
 
 function App() {
@@ -69,10 +70,10 @@ function App() {
       </header>
 
       {/* Hero Section */}
-      <section className="hero">
+      <section className="hero" style={{ backgroundImage: `url(${imageA})` }}>
         <div className="hero-content">
-          <h1>Apprenez en regardant des films</h1>
-          <p>Explorez des parcours d'apprentissage interactifs et divertissants.</p>
+          <h1>Educational Movies Platform</h1>
+	  <p>>Explorez des parcours d'apprentissage interactifs et divertissants.</p>
           <button className="btn-primary">Commencez maintenant</button>
         </div>
       </section>
