@@ -10,7 +10,7 @@ import image6 from './images/image6.png';
 import image7 from './images/image7.png';
 import image8 from './images/image8.png';
 import image9 from './images/image9.png';
-import imageA from './images/imageA.png';
+import videoA from './videos/videoA.mp4';
 
 
 function App() {
@@ -70,11 +70,12 @@ function App() {
       </header>
 
       {/* Hero Section */}
-      <section className="hero" style={{ backgroundImage: `url(${imageA})` }}>
+	   <section className="hero-section">
         <div className="hero-content">
-          <h1>Educational Movies Platform</h1>
-	  <p>>Explorez des parcours d'apprentissage interactifs et divertissants.</p>
-          <button className="btn-primary">Commencez maintenant</button>
+          <video autoPlay loop muted playsInline className="hero-video">
+            <source src={require('./videos/videoA.mp4')} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
         </div>
       </section>
 
@@ -199,9 +200,9 @@ function App() {
                     <li><a href="#legal">Mentions légales</a></li>
                 </ul>
             </div>
-      </footer>
+	  </footer>
           <p class="copyright">&copy; 2024 Learn and Films. Tous droits réservés.</p>
-    </div>
+	 </div>
   );
 }
 export default App;
