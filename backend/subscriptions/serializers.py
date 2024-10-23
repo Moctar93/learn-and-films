@@ -1,12 +1,12 @@
 from rest_framework import serializers
-from .models import Subscription, UserSubscription, Transaction
+from .models import Subscription, UserSubscription, Transaction, Film
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 
 class SubscriptionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subscription
-        fields = '__all__'
+        fields = ['id', 'name', 'price', 'duration_days']
 
 class UserSubscriptionSerializer(serializers.ModelSerializer):
     # Récupérer le nom d'utilisateur et l'email de l'utilisateur lié
@@ -17,19 +17,27 @@ class UserSubscriptionSerializer(serializers.ModelSerializer):
         model = UserSubscription
         fields = ['id', 'username', 'email', 'subscription', 'start_date', 'end_date']
 
-    # On surcharge la méthode create pour hasher le mot de passe de l'utilisateur lié
+    # Sérialiseur pour la création et mise à jour des utilisateurs
+class UserSerializer(serializers.ModelSerializer):
+    # On utilise make_password pour hasher le mot de passe lors de la création d'un utilisateur
+    password = serializers.CharField(write_only=True, required=True)
+
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email', 'password']
+
     def create(self, validated_data):
-        # Récupérer les données utilisateur
-        user_data = validated_data.pop('user', {})
-        user_data['password'] = make_password(user_data.get('password'))
+        # Hacher le mot de passe avant la création
+        validated_data['password'] = make_password(validated_data['password'])
+        return super(UserSerializer, self).create(validated_data)
 
-        # Créer l'utilisateur associé
-        user = User.objects.create(**user_data)
+    # Sérialiseur pour les films
+class FilmSerializer(serializers.ModelSerializer):
+    genre_display = serializers.ReadOnlyField(source='get_genre_display')
 
-        # Associer l'utilisateur à l'abonnement
-        user_subscription = UserSubscription.objects.create(user=user, **validated_data)
-
-        return user_subscription
+    class Meta:
+        model = Film
+        fields = ['id', 'title', 'genre', 'genre_display', 'release_date', 'duration', 'director', 'description', 'rating']
 
 
 class TransactionSerializer(serializers.ModelSerializer):

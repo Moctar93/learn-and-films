@@ -1,13 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from rest_framework.response import Response
 import stripe
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse, HttpResponse
 from rest_framework import viewsets, status
-from .models import Subscription, UserSubscription, Transaction
-from .serializers import SubscriptionSerializer, UserSubscriptionSerializer, TransactionSerializer
+from .models import Subscription, UserSubscription, Transaction, Film
+from .serializers import SubscriptionSerializer, UserSubscriptionSerializer, TransactionSerializer, FilmSerializer
 from rest_framework.decorators import api_view
+from django.contrib.auth.models import User
 from datetime import datetime
 
 # Initialiser la clé API Stripe
@@ -17,14 +18,42 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 def index(request):
     return render(request, 'index.html')
 
+def genre_list(request):
+# Votre logique pour récupérer et afficher les genres
+    genres = [...]  # Remplacez par la logique appropriée
+    return render(request, 'genre_list.html', {'genres': genres})
+
+def films_by_genre(request, genre):
+    # Vérifie que le genre passé dans l'URL est valide
+    genre_choices = dict(Film.GENRE_CHOICES).keys()
+    if genre.lower() not in genre_choices:
+        message = f"Le genre '{genre}' n'est pas valide."
+        return render(request, 'films_by_genre.html', {'films': [], 'genre': genre, 'message': message})
+    
+    # Récupérer les films filtrés par genre (insensible à la casse)
+    films = Film.objects.filter(genre__iexact=genre)  # iexact = ignore la casse
+
+    # Si aucun film n'est trouvé, affiche un message
+    if not films:
+        message = f"Aucun film trouvé pour le genre {genre}."
+    else:
+        message = None
+    
+    return render(request, 'films_by_genre.html', {'films': films, 'genre': genre, 'message': message})
+
 class SubscriptionViewSet(viewsets.ModelViewSet):
     queryset = Subscription.objects.all()
     serializer_class = SubscriptionSerializer
+
 
 # VueSet pour gérer les abonnements des utilisateurs
 class UserSubscriptionViewSet(viewsets.ModelViewSet):
     queryset = UserSubscription.objects.all()
     serializer_class = UserSubscriptionSerializer
+
+class FilmViewSet(viewsets.ModelViewSet):
+    queryset = Film.objects.all()
+    serializer_class = FilmSerializer
 
 class TransactionViewSet(viewsets.ModelViewSet):
     queryset = Transaction.objects.all()
@@ -33,13 +62,42 @@ class TransactionViewSet(viewsets.ModelViewSet):
 # Vue pour enregistrer un nouvel abonnement utilisateur
 @api_view(['POST'])
 def register(request):
-    serializer = UserSubscriptionSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response({'message': 'Inscription réussie'}, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    user_data = request.data.get('user')  # Récupération des données utilisateur
+    subscription_id = request.data.get('subscription')
 
-    # Vue pour créer une session de paiement Stripe
+    if not user_data or not isinstance(user_data, dict):
+        return Response({'error': 'Invalid user data format'}, status=status.HTTP_400_BAD_REQUEST)
+
+    if not subscription_id:
+        return Response({'error': 'Subscription ID is required'}, status=status.HTTP_400_BAD_REQUEST)
+
+    try:
+        # Créer l'utilisateur
+        user = User.objects.create_user(
+            username=user_data['username'],
+            email=user_data['email'],
+            password=user_data['password']
+        )
+
+        # Récupérer la souscription
+        subscription = Subscription.objects.get(id=subscription_id)
+
+        # Créer la souscription utilisateur
+        user_subscription = UserSubscription.objects.create(
+            user=user,
+            subscription=subscription,
+            start_date=request.data['start_date'],
+            end_date=request.data['end_date']
+        )
+
+        return Response({'message': 'User registered successfully'}, status=status.HTTP_201_CREATED)
+
+    except Subscription.DoesNotExist:
+        return Response({'error': 'Subscription does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+    except Exception as e:
+        return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+# Vue pour créer une session de paiement Stripe
 @api_view(['POST'])
 def create_checkout_session(request, subscription_id):
     try:

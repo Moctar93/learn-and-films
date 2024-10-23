@@ -72,3 +72,6 @@ SECRET_KEY = 'votre_cle_secrète'  # Changez ceci pour un vrai projet
 DEBUG = True
 ALLOWED_HOSTS = ['*']  # Ajoutez ici les hôtes autorisés pour la production
 
+STRIPE_SECRET_KEY = 'sk_test_your_secret_key'
+STRIPE_PUBLISHABLE_KEY = 'pk_test_your_publishable_key'
+STRIPE_WEBHOOK_SECRET = 'whsec_your_webhook_secret'
