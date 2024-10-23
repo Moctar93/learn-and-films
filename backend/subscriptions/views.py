@@ -62,6 +62,9 @@ class TransactionViewSet(viewsets.ModelViewSet):
 # Vue pour enregistrer un nouvel abonnement utilisateur
 @api_view(['POST'])
 def register(request):
+     
+    print("Request Data: ", request.data)  # Ceci affiche les données reçues dans la console
+    
     user_data = request.data.get('user')  # Récupération des données utilisateur
     subscription_id = request.data.get('subscription')
 

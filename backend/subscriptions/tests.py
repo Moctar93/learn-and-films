@@ -35,7 +35,8 @@ class RegisterTestCase(TestCase):
         
         # Affichez les données de la réponse si le statut n'est pas celui attendu
         if response.status_code != status.HTTP_201_CREATED:
-            print("Response Data: ", response.data)
+            print("Response Status: ", response.status_code)
+            print("Response Content: ", response.content)
         
         # Vérification que le statut de la réponse est bien HTTP 201 (Créé)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
