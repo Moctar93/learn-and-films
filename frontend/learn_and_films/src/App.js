@@ -116,7 +116,11 @@ function App() {
 
       {/* Footer */}
       <footer className="footer">
-        <p>&copy; 2024 Learn and Films. Tous droits réservés.</p>
+	  <p>Nous contacter</p>
+	  <p>Contact</p>
+	  <p>Support</p>
+	  <p>Email</p>
+        <h2>&copy; 2024 Learn and Films. Tous droits réservés.</h2>
       </footer>
     </div>
   );
