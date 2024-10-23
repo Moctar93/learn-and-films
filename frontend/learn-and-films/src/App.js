@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
+import { BrowserRouter as Router, Routes, Route, Switch, Link, useNavigate } from 'react-router-dom';
+import SignUpPage from './pages/SignUpPage';
 import logo from './images/logo.png';
 import image1 from './images/image1.png';
 import image2 from './images/image2.png';
@@ -11,7 +13,6 @@ import image7 from './images/image7.png';
 import image8 from './images/image8.png';
 import image9 from './images/image9.png';
 import videoA from './videos/videoA.mp4';
-
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -28,6 +29,7 @@ function App() {
   };
 
   return (
+    <Router>
     <div className="app">
 	  {/* Header avec le logo */}
       <header className="header">
@@ -59,8 +61,8 @@ function App() {
                   </>
                 ) : (
                   <>
-                    <li><a href="#" onClick={handleLogin}>Connexion</a></li>
-                    <li><a href="#">Inscription</a></li>
+                    <li><a href="#">Connexion</a></li>
+                    <li><Link to="/register">Inscription</Link></li>
                   </>
                 )}
               </ul>
@@ -68,6 +70,12 @@ function App() {
           </ul>
         </nav>
       </header>
+
+	  {/* Routes pour différentes pages */}
+        <Routes>
+          <Route path="/register" element={<SignUpPage />} /> {/* Page d'inscription */}
+          {/* Ajouter d'autres routes si nécessaire */}
+        </Routes>
 
       {/* Hero Section */}
 	   <section className="hero-section">
@@ -203,6 +211,7 @@ function App() {
 	  </footer>
           <p class="copyright">&copy; 2024 Learn and Films. Tous droits réservés.</p>
 	 </div>
+	  </Router>
   );
 }
 export default App;
