@@ -108,11 +108,23 @@ nav ul li a:hover {
     background-color: #e50914; /* Couleur de fond au survol */
 }
 
-.hero {
-    background-image: url('https://via.placeholder.com/1500x400'); /* Image d'arrière-plan pour la section héros */
-    background-size: cover;
-    padding: 80px 20px;
-    text-align: center;
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; 
 }
 
 .hero h1 {
@@ -125,6 +137,12 @@ nav ul li a:hover {
     font-size: 1.2em;
     margin-bottom: 20px;
     color: #ffffff;
+}
+
+a {
+    text-decoration: underline;
+    color: blue;
+    cursor: pointer;
 }
 
 .btn {
@@ -221,12 +239,13 @@ footer {
 .footer-section h4 {
     margin-bottom: 15px;
     font-size: 16px;
-    color: blanchedalmond;
+    color: #e37f14;
 }
 
 .footer-section ul {
     list-style-type: none;
     padding: 0;
+}
 
     footer {
     background-color: #333; /* Couleur de fond du footer */
@@ -236,5 +255,4 @@ footer {
     text-align: center; /* Centre le texte dans le footer */
     }
 
-}
 }
