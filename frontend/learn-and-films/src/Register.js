@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+function RegisterPage() {
+  return (
+    <div>
+      <h1>Inscription</h1>
+      {/* Formulaire d'inscription ou autres éléments ici */}
+    </div>
+  );
+}
+
 const Register = () => {
   const [formData, setFormData] = useState({
     username: '',

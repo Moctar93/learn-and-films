@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom'; // Ajout de react-router-dom
+import { BrowserRouter as Router, Route, Routes, Switch, Link, useNavigate } from 'react-router-dom'; // Ajout de react-router-dom
 import './App.css';
-import { BrowserRouter as Router, Routes, Route, Switch, Link, useNavigate } from 'react-router-dom';
+import HomePage from './HomePage';
+import Register from './Register.js';
 import SignUpPage from './pages/SignUpPage';
 import logo from './images/logo.png';
 import image1 from './images/image1.png';
@@ -13,14 +14,9 @@ import image6 from './images/image6.png';
 import image7 from './images/image7.png';
 import image8 from './images/image8.png';
 import image9 from './images/image9.png';
-<<<<<<< HEAD
-import imageA from './images/imageA.png';
-import SignUpPage from './pages/SignUpPage'; // Importer la page d'inscription
-=======
-import videoA from './videos/videoA.mp4';
->>>>>>> 72c3aa1c9a1a850ce0b3ffb803203d4b85f77722
 
 function App() {
+  const videoSrc = `${process.env.PUBLIC_URL}/videoB.mp4`;
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -67,12 +63,8 @@ function App() {
                   </>
                 ) : (
                   <>
-<<<<<<< HEAD
                     <li><a href="#" onClick={handleLogin}>Connexion</a></li>
-=======
-                    <li><a href="#">Connexion</a></li>
->>>>>>> 72c3aa1c9a1a850ce0b3ffb803203d4b85f77722
-                    <li><Link to="/register">Inscription</Link></li>
+                    <Link to="/register">Inscription</Link>
                   </>
                 )}
               </ul>
@@ -81,11 +73,7 @@ function App() {
         </nav>
       </header>
 
-<<<<<<< HEAD
 	   {/* Routes pour différentes pages */}
-=======
-	  {/* Routes pour différentes pages */}
->>>>>>> 72c3aa1c9a1a850ce0b3ffb803203d4b85f77722
         <Routes>
           <Route path="/register" element={<SignUpPage />} /> {/* Page d'inscription */}
           {/* Ajouter d'autres routes si nécessaire */}
@@ -95,7 +83,7 @@ function App() {
 	   <section className="hero-section">
         <div className="hero-content">
           <video autoPlay loop muted playsInline className="hero-video">
-            <source src={require('./videos/videoA.mp4')} type="video/mp4" />
+             <source src={videoSrc} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>
@@ -224,13 +212,8 @@ function App() {
             </div>
 	  </footer>
           <p class="copyright">&copy; 2024 Learn and Films. Tous droits réservés.</p>
-<<<<<<< HEAD
-    </div>
-   </Router>
-=======
 	 </div>
-	  </Router>
->>>>>>> 72c3aa1c9a1a850ce0b3ffb803203d4b85f77722
+	</Router>
   );
 }
 export default App;
