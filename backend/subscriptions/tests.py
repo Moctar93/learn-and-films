@@ -1,43 +1,42 @@
-from django.test import TestCase
-from rest_framework import status
-from .models import UserSubscription, Subscription
 from django.urls import reverse
-from rest_framework.test import APIClient, APITestCase
+from rest_framework import status
+from rest_framework.test import APITestCase
 from django.contrib.auth.models import User
+from .models import Subscription, UserSubscription
 
-class RegisterTestCase(TestCase):
+class RegisterTestCase(APITestCase):
     def setUp(self):
-        # Création d'un abonnement valide pour les tests
+        # Créer une souscription pour les tests
         self.subscription = Subscription.objects.create(
-            name='Basic',  # Nom de l'abonnement
-            price=9.99,    # Prix de l'abonnement
-            duration_days=30  # Durée de l'abonnement en jours
+            name="Standard ",
+            price= 20,
+            duration_days= 30
         )
 
-        # URL du point de terminaison de l'API de registration
-        self.url = '/api/register/'
-        
-        # Données utilisateur pour la requête POST
-        self.user_data = {
-            'user': {  # Dictionnaire avec les informations de l'utilisateur
-                'username': 'jordy',
-                'email': 'jordymoukiana@gmail.com',
-                'password': '23Aout1996'
+        # URL de l'API pour l'enregistrement
+        self.url = reverse('register')  # Assurez-vous que l'URL est bien configurée dans vos URLs
+
+    def test_register_user_successful(self):
+        """Tester l'enregistrement réussi d'un utilisateur et souscription"""
+        data = {
+            "user": {
+                "username": "moctar",
+                "email": "moctar@gmail.com",
+                "password": "moctarpassword"
             },
-            'subscription': self.subscription.id,  # ID de l'abonnement
-            'start_date': '2024-01-01',
-            'end_date': '2024-12-31'
+            "subscription": self.subscription.id,
+            "start_date": "2024-01-01",
+            "end_date": "2024-12-31"
         }
 
-    def test_register(self):
-        # Envoi d'une requête POST avec les données utilisateur
-        response = self.client.post(self.url, self.user_data, format='json')
-        
-        # Affichez les données de la réponse si le statut n'est pas celui attendu
-        if response.status_code != status.HTTP_201_CREATED:
-            print("Response Status: ", response.status_code)
-            print("Response Content: ", response.content)
-        
-        # Vérification que le statut de la réponse est bien HTTP 201 (Créé)
+        response = self.client.post(self.url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.data['message'], "User registered successfully")
 
+        # Vérifie que l'utilisateur a été créé
+        user_exists = User.objects.filter(username="moctar").exists()
+        self.assertTrue(user_exists)
+
+        # Vérifie que l'abonnement utilisateur a été créé
+        user_subscription_exists = UserSubscription.objects.filter(user__username="moctar", subscription=self.subscription).exists()
+        self.assertTrue(user_subscription_exists)
