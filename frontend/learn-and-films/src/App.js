@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom'; // Ajout de react-router-dom
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'; // Ajout de react-router-dom
 import './App.css';
-import { BrowserRouter as Router, Routes, Route, Switch, Link, useNavigate } from 'react-router-dom';
 import SignUpPage from './pages/SignUpPage';
+import HomePage from './pages/HomePage';
 import logo from './images/logo.png';
 import image1 from './images/image1.png';
 import image2 from './images/image2.png';
@@ -13,12 +13,7 @@ import image6 from './images/image6.png';
 import image7 from './images/image7.png';
 import image8 from './images/image8.png';
 import image9 from './images/image9.png';
-<<<<<<< HEAD
-import imageA from './images/imageA.png';
-import SignUpPage from './pages/SignUpPage'; // Importer la page d'inscription
-=======
 import videoA from './videos/videoA.mp4';
->>>>>>> 72c3aa1c9a1a850ce0b3ffb803203d4b85f77722
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -45,50 +40,42 @@ function App() {
           className="logo"
         />
 
-	  <div class="search-bar">
+	  <div className="search-bar">
             <form action="/search" method="GET">
-                <input class="input" type="text" name="query" placeholder="Rechercher..." required/>
-                <button class="search" type="submit">Rechercher</button>
+                <input className="input" type="text" name="query" placeholder="Rechercher..." required/>
+                <button className="search" type="submit">Rechercher</button>
             </form>
 	  </div>
 
         <nav>
-          <ul className="nav-links">
-            <li><a href="#">Accueil</a></li>
-            <li><a href="#">Modules</a></li>
-            <li><a href="#">Films</a></li>
-            <li className="user-menu" onClick={toggleMenu}>
-              {isLoggedIn ? 'Gestion Utilisateur' : 'Connexion / Inscription'}
-              <ul className={`dropdown ${isMenuOpen ? 'open' : ''}`}>
-                {isLoggedIn ? (
-                  <>
-                    <li><a href="#">Dashboard</a></li>
-                    <li><a href="#" onClick={handleLogout}>Déconnexion</a></li>
-                  </>
-                ) : (
-                  <>
-<<<<<<< HEAD
-                    <li><a href="#" onClick={handleLogin}>Connexion</a></li>
-=======
-                    <li><a href="#">Connexion</a></li>
->>>>>>> 72c3aa1c9a1a850ce0b3ffb803203d4b85f77722
-                    <li><Link to="/register">Inscription</Link></li>
-                  </>
-                )}
-              </ul>
-            </li>
-          </ul>
-        </nav>
+	  <ul className="nav-links">
+	  <li><Link to="/">Accueil</Link></li>
+	  <li><Link to="/modules">Modules</Link></li>
+	  <li><Link to="/films">Films</Link></li>
+	  <li className="user-menu" onClick={toggleMenu}>
+	  {isLoggedIn ? 'Gestion Utilisateur' : 'Connexion / Inscription'}
+	  <ul className={`dropdown ${isMenuOpen ? 'open' : ''}`}>
+	  {isLoggedIn ? (
+          <>
+            <li><Link to="/dashboard">Dashboard</Link></li>
+            <button onClick={handleLogout}>Déconnexion</button>
+          </>
+        ) : (
+          <>
+            <li><Link to="/login">Connexion</Link></li>
+            <li><Link to="/register">Inscription</Link></li> {/* Ce lien doit être cliquable */}
+          </>
+        )}
+	  </ul>
+	  </li>
+	  </ul>
+	  </nav>
       </header>
 
-<<<<<<< HEAD
-	   {/* Routes pour différentes pages */}
-=======
 	  {/* Routes pour différentes pages */}
->>>>>>> 72c3aa1c9a1a850ce0b3ffb803203d4b85f77722
         <Routes>
+	  <Route path="/" element={<HomePage />} />  {/* Définir la route pour la page d'accueil */}
           <Route path="/register" element={<SignUpPage />} /> {/* Page d'inscription */}
-          {/* Ajouter d'autres routes si nécessaire */}
         </Routes>
 
       {/* Hero Section */}
@@ -191,7 +178,7 @@ function App() {
 
       {/* Footer */}
       <footer className="footer">
-            <div class="footer-section">
+            <div className="footer-section">
                 <h4>Nous contacter</h4>
                 <ul>
                     <li><a href="#contact">Contact</a></li>
@@ -200,7 +187,7 @@ function App() {
                 </ul>
             </div>
 
-            <div class="footer-section">
+            <div className="footer-section">
                 <h4>Guide</h4>
                 <ul>
                     <li><a href="#faq">FAQ</a></li>
@@ -208,7 +195,7 @@ function App() {
                 </ul>
             </div>
 
-	   <div class="footer-section">
+	   <div className="footer-section">
                 <h4>Confidentialités</h4>
                 <ul>
                     <li><a href="#privacy">Politique de confidentialité</a></li>
@@ -216,21 +203,16 @@ function App() {
                 </ul>
             </div>
 
-            <div class="footer-section">
+            <div className="footer-section">
                 <h4>Informations légales</h4>
                 <ul>
                     <li><a href="#legal">Mentions légales</a></li>
                 </ul>
             </div>
 	  </footer>
-          <p class="copyright">&copy; 2024 Learn and Films. Tous droits réservés.</p>
-<<<<<<< HEAD
+          <p className="copyright">&copy; 2024 Learn and Films. Tous droits réservés.</p>
     </div>
    </Router>
-=======
-	 </div>
-	  </Router>
->>>>>>> 72c3aa1c9a1a850ce0b3ffb803203d4b85f77722
   );
 }
 export default App;
