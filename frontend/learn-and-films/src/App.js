@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'; // Ajout de react-router-dom
 import './App.css';
-import SignUpPage from './pages/SignUpPage';
 import HomePage from './pages/HomePage';
+import Register from './Register.js';
+import SignUpPage from './pages/SignUpPage';
 import logo from './images/logo.png';
 import image1 from './images/image1.png';
 import image2 from './images/image2.png';
@@ -69,10 +70,10 @@ function App() {
 	  </ul>
 	  </li>
 	  </ul>
-	  </nav>
+	  </nav>c
       </header>
 
-	  {/* Routes pour différentes pages */}
+	   {/* Routes pour différentes pages */}
         <Routes>
 	  <Route path="/" element={<HomePage />} />  {/* Définir la route pour la page d'accueil */}
           <Route path="/register" element={<SignUpPage />} /> {/* Page d'inscription */}
@@ -81,8 +82,8 @@ function App() {
       {/* Hero Section */}
 	   <section className="hero-section">
         <div className="hero-content">
-          <video autoPlay loop muted playsInline className="hero-video">
-            <source src={require('./videos/videoA.mp4')} type="video/mp4" />
+	  <video autoPlay loop muted playsInline className="hero-video">
+             <source src={videoA} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>
@@ -211,8 +212,8 @@ function App() {
             </div>
 	  </footer>
           <p className="copyright">&copy; 2024 Learn and Films. Tous droits réservés.</p>
-    </div>
-   </Router>
+	 </div>
+	</Router>
   );
 }
 export default App;
