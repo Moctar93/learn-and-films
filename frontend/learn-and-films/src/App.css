@@ -126,6 +126,13 @@ nav ul li a:hover {
     width: 100%;
     height: 100%;
     z-index: -1; 
+
+.hero-content video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 }
 
 .hero h1 {
@@ -222,13 +229,15 @@ footer {
     bottom: 0;
     width: 100%;
     display: flex;
+}
 
-    footer-container {
+.footer-container {
     display: flex;
     justify-content: space-around;
     max-width: 1200px;
     margin: 0 auto;
     flex-wrap: wrap;
+    align: center;
 }
 
 .footer-section {
@@ -246,14 +255,4 @@ footer {
 .footer-section ul {
     list-style-type: none;
     padding: 0;
-}
-
-    footer {
-    background-color: #333; /* Couleur de fond du footer */
-    color: white; /* Couleur du texte */
-    text-align: center; /* Centrer le texte */
-    padding: 20px 0; /* Espacement vertical */
-    text-align: center; /* Centre le texte dans le footer */
-    }
-
 }
