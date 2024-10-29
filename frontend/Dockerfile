@@ -5,7 +5,11 @@ FROM nginx:latest
 COPY softy-pinko-front-end.conf /etc/nginx/conf.d/default.conf
 
 # Copier les fichiers du front-end dans le répertoire par défaut de Nginx
+<<<<<<< HEAD
 COPY . /var/www/html/learn-and-films
+=======
+COPY learn-and-films /var/www/html/learn-and-films
+>>>>>>> jordy
 
 # Exposer le port 9000 pour accéder au site
 EXPOSE 9000

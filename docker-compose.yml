@@ -6,7 +6,11 @@ services:
       context: ./backend
       dockerfile: Dockerfile  # Spécifiez le chemin vers votre Dockerfile
     ports:
+<<<<<<< HEAD
       - "8000:8000"  # Redirige le port 5000 pour l'API backend
+=======
+      - "9002:5000"  # Redirige le port 5000 pour l'API backend
+>>>>>>> jordy
     volumes:
       - ./backend:/app  # Monte le dossier local dans le conteneur
 
@@ -15,16 +19,26 @@ services:
       context: ./frontend
       dockerfile: Dockerfile  # Spécifiez le Dockerfile pour le frontend
     ports:
+<<<<<<< HEAD
       - "3000:80"  # Redirige le port 3000 pour l'application frontend
+=======
+      - "3000:3000"  # Redirige le port 3000 pour l'application frontend
+>>>>>>> jordy
     volumes:
       - ./frontend:/app  # Monte le dossier local dans le conteneur
 
   nginx:
     image: nginx:latest
     volumes:
+<<<<<<< HEAD
       - ./path/to/nginx.conf:/etc/nginx/nginx.conf  # Spécifiez votre fichier de configuration Nginx
     ports:
       - "80:80"  # Redirige le port 80 pour servir l'application
+=======
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf  # Spécifiez votre fichier de configuration Nginx
+    ports:
+      - "5432:5432"  # Redirige le port 80 pour servir l'application
+>>>>>>> jordy
 
 volumes:
   db_data:

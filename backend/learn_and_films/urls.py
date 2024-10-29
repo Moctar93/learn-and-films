@@ -1,5 +1,5 @@
 """
-URL configuration for mysite project.
+URL configuration for learn_and_films project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.1/topics/http/urls/
@@ -16,11 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic import TemplateView 
+from django.shortcuts import redirect
+from users.homepage import homepage
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', TemplateView.as_view(template_name='index.html'), name='home'),
-    path('api/', include('subscriptions.urls')),
-    path('', include('myapp.urls')),
+    path('api/', include('users.urls')),
+    path('', homepage, name='homepage'),  # Page d'accueil
+    #path('register/', views.register, name='register'),  # Appelle la vue d'inscription
+    path('', lambda request: redirect('api/users/register/')),  # Redirection vers l'inscription
 ]
