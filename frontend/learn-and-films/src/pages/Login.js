@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import './SignUp.css'; // Assurez-vous que le fichier CSS est bien configuré
 
 const Login = ({ setIsLoggedIn }) => {
   const [username, setUsername] = useState('');
@@ -25,7 +26,7 @@ const Login = ({ setIsLoggedIn }) => {
   };
 
   return (
-    <div>
+    <div className="sign-up-container">
       <h2>Connexion</h2>
       {error && <p>{error}</p>}
       <form onSubmit={handleSubmit}>

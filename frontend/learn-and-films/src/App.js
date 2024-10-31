@@ -53,7 +53,7 @@ function App() {
         <nav>
 	  <ul className="nav-links">
 	  <li><Link to="/">Accueil</Link></li>
-	  <li><Link to="/modules">Modules</Link></li>
+	  <li><Link to="/series">Series</Link></li>
 	  <li><Link to="/films">Films</Link></li>
 	  <li className="user-menu" onClick={toggleMenu}>
 	  {isLoggedIn ? 'Gestion Utilisateur' : 'Connexion / Inscription'}
