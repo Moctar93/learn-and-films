@@ -4,6 +4,8 @@ import './App.css';
 import HomePage from './pages/HomePage';
 import Register from './Register.js';
 import SignUpPage from './pages/SignUpPage';
+import Login from './pages/Login';
+import UserList from './pages/UserList';
 import logo from './images/logo.png';
 import image1 from './images/image1.png';
 import image2 from './images/image2.png';
@@ -26,8 +28,8 @@ function App() {
     setIsMenuOpen(false);
   };
   const handleLogout = () => {
-    setIsLoggedIn(false);
-    setIsMenuOpen(false);
+	localStorage.removeItem('token'); // Supprimez le token du local storage
+	setIsLoggedIn(false); // Mettez à jour l'état pour indiquer que l'utilisateur est déconnecté
   };
 
   return (
@@ -70,13 +72,14 @@ function App() {
 	  </ul>
 	  </li>
 	  </ul>
-	  </nav>c
+	  </nav>
       </header>
 
 	   {/* Routes pour différentes pages */}
         <Routes>
 	  <Route path="/" element={<HomePage />} />  {/* Définir la route pour la page d'accueil */}
           <Route path="/register" element={<SignUpPage />} /> {/* Page d'inscription */}
+	   <Route path="/login" element={<Login />} /> {/* Page de connexion */}
         </Routes>
 
       {/* Hero Section */}
@@ -212,6 +215,7 @@ function App() {
             </div>
 	  </footer>
           <p className="copyright">&copy; 2024 Learn and Films. Tous droits réservés.</p>
+	  <UserList />
 	 </div>
 	</Router>
   );
