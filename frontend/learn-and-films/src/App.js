@@ -214,7 +214,9 @@ function App() {
                 </ul>
             </div>
 	  </footer>
+	  <div className="right-copy">
           <p className="copyright">&copy; 2024 Learn and Films. Tous droits réservés.</p>
+	  </div>
 	  <UserList />
 	 </div>
 	</Router>
