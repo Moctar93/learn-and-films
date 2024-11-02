@@ -22,6 +22,8 @@ from users.homepage import homepage
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('users.urls')),
+    path('api/', include('subscriptions.urls')),
+    path('subscriptions/', include('subscriptions.urls')),
     path('', homepage, name='homepage'),  # Page d'accueil
     #path('register/', views.register, name='register'),  # Appelle la vue d'inscription
     path('', lambda request: redirect('api/users/register/')),  # Redirection vers l'inscription

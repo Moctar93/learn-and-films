@@ -60,13 +60,13 @@ function App() {
 	  <ul className={`dropdown ${isMenuOpen ? 'open' : ''}`}>
 	  {isLoggedIn ? (
           <>
-            <li><Link to="/dashboard">Dashboard</Link></li>
-            <button onClick={handleLogout}>Déconnexion</button>
+            <li><Link to="/dashboard" onClick={() => setIsMenuOpen(false)}>Dashboard</Link></li>
+            <li><button onClick={handleLogout}>Déconnexion</button></li>
           </>
         ) : (
           <>
-            <li><Link to="/login">Connexion</Link></li>
-            <li><Link to="/register">Inscription</Link></li> {/* Ce lien doit être cliquable */}
+            <li><Link to="/login" onClick={() => setIsMenuOpen(false)}>Connexion</Link></li>
+            <li><Link to="/register" onClick={() => setIsMenuOpen(false)}>Inscription</Link></li>
           </>
         )}
 	  </ul>
@@ -79,7 +79,7 @@ function App() {
         <Routes>
 	  <Route path="/" element={<HomePage />} />  {/* Définir la route pour la page d'accueil */}
           <Route path="/register" element={<SignUpPage />} /> {/* Page d'inscription */}
-	   <Route path="/login" element={<Login />} /> {/* Page de connexion */}
+	   <Route path="/login" element={<Login onLoginSuccess={handleLogin} />} /> {/* Page de connexion */}
         </Routes>
 
       {/* Hero Section */}

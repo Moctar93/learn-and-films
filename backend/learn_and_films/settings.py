@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import paypalrestsdk
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',  # Pour les API REST
     'users',
+    'subscriptions',
     'corsheaders',
     'rest_framework.authtoken',
 ]
@@ -108,6 +110,16 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+PAYPAL_CLIENT_ID = 'AUO7_nmW2gk-82WIp3tzuAEeGa2KnCgau69V3YT73KvVcCxXNJX9D5AGl9QNb5-KntYK0GYD1vQDf_N5'
+PAYPAL_CLIENT_SECRET = 'EF24zMw9tNl0mA2ycuTJ8fR_cFU4xzE6UveLw9rOQQpLEfBANUgru3t7k-ke6PRoLb3BEecfMZvLSaiA'
+PAYPAL_MODE = 'sandbox'  # A changez en 'live' pour la production
+
+paypalrestsdk.configure({
+    "mode": PAYPAL_MODE,
+    "client_id": PAYPAL_CLIENT_ID,
+    "client_secret": PAYPAL_CLIENT_SECRET
+})
 
 
 # Internationalization

@@ -42,3 +42,9 @@
   background-color: #0056b3;
 }
 
+.success-message,
+.error-message {
+  color: black; /* Définit la couleur du texte en noir */
+  font-weight: bold;
+  margin-top: 10px;
+}
