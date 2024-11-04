@@ -138,6 +138,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+LOGIN_URL = '/subscriptions/login/'
+#LOGIN_URL = '/accounts/login/'  # URL de la page de connexion
+LOGIN_REDIRECT_URL = '/subscriptions/success/'  # URL de redirection après connexion
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

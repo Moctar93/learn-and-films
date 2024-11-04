@@ -25,6 +25,7 @@ urlpatterns = [
     path('api/', include('subscriptions.urls')),
     path('subscriptions/', include('subscriptions.urls')),
     path('', homepage, name='homepage'),  # Page d'accueil
+     path('accounts/', include('django.contrib.auth.urls')),  # Ajouter les URL d'authentification par défaut
     #path('register/', views.register, name='register'),  # Appelle la vue d'inscription
     path('', lambda request: redirect('api/users/register/')),  # Redirection vers l'inscription
 ]

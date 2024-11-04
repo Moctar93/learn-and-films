@@ -1,3 +1,4 @@
+# users/views.py
 from django.shortcuts import render
 from rest_framework import status
 from rest_framework.response import Response
@@ -7,6 +8,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
 from .serializers import RegisterSerializer, UserSerializer  # Import des deux serializers en une seule ligne
+from rest_framework.permissions import AllowAny
 
 class RegisterView(APIView):
     def post(self, request):
@@ -17,7 +19,7 @@ class RegisterView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UserListView(APIView):
-    #permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]  # IsAuthenticated Remplacer temporairement pour tester
 
     def get(self, request):
         users = User.objects.all()
@@ -31,3 +33,4 @@ class CustomAuthToken(ObtainAuthToken):
         user = serializer.validated_data['user']
         token, created = Token.objects.get_or_create(user=user)
         return Response({'token': token.key, 'username': user.username})
+

@@ -8,6 +8,7 @@ const Register = () => {
         username: '',
         email: '',
         password: '',
+        subscription: 'basic', // Par défaut, l'abonnement est "basic"
     });
 
     const handleChange = (e) => {
@@ -20,11 +21,19 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            // Envoi de la demande d'inscription avec abonnement au backend
             const response = await axios.post('http://localhost:8000/api/register/', formData);
-            toast.success(response.data.message); // Notification de succès
+
+            if (response.data.paymentUrl) {
+                // Redirige l'utilisateur vers PayPal pour le paiement
+                window.location.href = response.data.paymentUrl;
+            } else {
+                // Affiche une notification de succès si aucun paiement PayPal n'est requis
+                toast.success(response.data.message);
+            }
         } catch (error) {
             if (error.response) {
-                toast.error(error.response.data.message || 'Erreur lors de l’inscription'); // Notification d'erreur
+                toast.error(error.response.data.message || 'Erreur lors de l’inscription');
             } else {
                 toast.error('Erreur lors de l’inscription');
             }
@@ -61,7 +70,17 @@ const Register = () => {
                         onChange={handleChange}
                         required
                     />
-                    <button type="submit">S'inscrire</button>
+                    <select
+                        name="subscription"
+                        value={formData.subscription}
+                        onChange={handleChange}
+                        required
+                    >
+                        <option value="basic">Basic - 5.00€</option>
+                        <option value="standard">Standard - 10.00€</option>
+                        <option value="premium">Premium - 15.00€</option>
+                    </select>
+                    <button type="submit">S'inscrire et payer</button>
                 </form>
             </div>
         </>
