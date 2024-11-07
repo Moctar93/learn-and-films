@@ -52,7 +52,7 @@ function SignUpPage() {
         return actions.order.create({
           purchase_units: [{
             amount: {
-              value: subscription === 'basic' ? '5.00' : subscription === 'standard' ? '10.00' : '15.00'
+              value: subscription === 'basic' ? '1.00' : subscription === 'standard' ? '2.00' : '3.00'
             }
           }]
         });
@@ -120,9 +120,9 @@ function SignUpPage() {
           onChange={(e) => setSubscription(e.target.value)}
           required
         >
-          <option value="basic">Basic - 5.00 USD</option>
-          <option value="standard">Standard - 10.00 USD</option>
-          <option value="premium">Premium - 15.00 USD</option>
+          <option value="basic">Basic - 1.00 USD</option>
+          <option value="standard">Standard - 2.00 USD</option>
+          <option value="premium">Premium - 3.00 USD</option>
         </select>
 
         <div id="paypal-button" style={{ margin: '20px 0' }}></div>
