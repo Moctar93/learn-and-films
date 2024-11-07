@@ -13,38 +13,39 @@ const Login = ({ setIsLoggedIn }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(''); // Réinitialisez l'erreur avant de faire la demande
-    setSuccessMessage(''); // Réinitialisez le message de succès avant de faire la demande
-
-    console.log('Tentative de connexion avec:', { username, password }); // Log pour débogage
+    
+    // Réinitialisez les messages d'erreur et de succès
+    setError('');
+    setSuccessMessage('');
+    
+    console.log('Tentative de connexion avec:', { username, password });
 
     try {
-      const response = await axios.post('http://localhost:8000/api/login/', {
-        username,
-        password,
-      });
+      const response = await axios.post('http://localhost:8000/api/login/', { username, password });
+      console.log('Réponse du serveur:', response);
 
-      console.log('Réponse du serveur:', response); // Affiche la réponse complète dans la console
-
+      // Vérification de la présence du token dans la réponse
       if (response.data && response.data.token) {
-        localStorage.setItem('token', response.data.token);
-        setIsLoggedIn(true);
-	// onLoginSuccess();  Appeler la fonction de gestion de la connexion
-        setSuccessMessage("Connexion réussie ! Bienvenue " + response.data.username); // Afficher le message de succès
+        localStorage.setItem('token', response.data.token); // Stocker le token dans localStorage
+        setIsLoggedIn(true); // Met à jour l'état de connexion dans le parent
+        setSuccessMessage(`Connexion réussie ! Bienvenue, ${response.data.username || 'utilisateur'}.`); // Affiche le message de succès
+
+        // Redirection vers la page d'accueil après un délai de 3 secondes
         setTimeout(() => {
-          navigate('/'); // Redirigez vers la page d'accueil après 3 secondes
+          navigate('/');
         }, 3000);
       } else {
+        console.warn("Aucun token reçu dans la réponse.");
         setError("Erreur lors de la connexion. Aucune donnée d'authentification reçue.");
       }
     } catch (err) {
-      console.error("Erreur capturée:", err); // Log de l'erreur pour débogage
+      console.error("Erreur capturée lors de la connexion:", err);
 
-      // Vérifiez si l'erreur contient une réponse et gérez-la
+      // Gestion des erreurs provenant de l'API
       if (err.response && err.response.data) {
-        setError(err.response.data.detail || "Erreur lors de la connexion. Vérifiez vos identifiants."); // Affiche un message d'erreur plus précis
+        setError(err.response.data.detail || "Erreur de connexion au serveur. Veuillez réessayer plus tard.");
       } else {
-        setError("Erreur lors de la connexion. Vérifiez vos identifiants.");
+        setError("Connexion réussie ! Bienvenue");
       }
     }
   };
@@ -52,8 +53,11 @@ const Login = ({ setIsLoggedIn }) => {
   return (
     <div className="sign-up-container">
       <h2>Connexion</h2>
-      {error && <p className="error-message" style={{ color: 'black' }}>{error}</p>} {/* Affiche le message d'erreur */}
-      {successMessage && <p className="success-message" style={{ color: 'black' }}>{successMessage}</p>} {/* Affiche le message de succès */}
+      
+      {/* Messages d'erreur et de succès */}
+      {error && <p className="error-message" style={{ color: 'black' }}>{error}</p>}
+      {successMessage && <p className="success-message" style={{ color: 'black' }}>{successMessage}</p>}
+      
       <form onSubmit={handleSubmit}>
         <div>
           <label>Nom d'utilisateur</label>
@@ -80,5 +84,4 @@ const Login = ({ setIsLoggedIn }) => {
 };
 
 export default Login;
-
 

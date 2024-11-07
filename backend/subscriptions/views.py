@@ -18,7 +18,7 @@ paypalrestsdk.configure({
 @login_required
 def create_subscription(request, plan):
     # Montant en fonction du plan choisi
-    amount = "9.99" if plan == "basic" else "19.99" if plan == "standard" else "29.99"
+    amount = "1.00" if plan == "basic" else "2.00" if plan == "standard" else "3.00"
 
     # Créer un paiement PayPal
     payment = paypalrestsdk.Payment({

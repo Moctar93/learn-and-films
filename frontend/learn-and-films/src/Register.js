@@ -76,9 +76,9 @@ const Register = () => {
                         onChange={handleChange}
                         required
                     >
-                        <option value="basic">Basic - 5.00€</option>
-                        <option value="standard">Standard - 10.00€</option>
-                        <option value="premium">Premium - 15.00€</option>
+                        <option value="basic">Basic - 1.00€</option>
+                        <option value="standard">Standard - 2.00€</option>
+                        <option value="premium">Premium - 3.00€</option>
                     </select>
                     <button type="submit">S'inscrire et payer</button>
                 </form>
