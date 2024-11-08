@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link, Navigate } from 'react-router-dom';
 import './App.css';
 import HomePage from './pages/HomePage';
 import Register from './Register.js';
 import SignUpPage from './pages/SignUpPage';
 import Login from './pages/Login';
 import UserList from './pages/UserList';
+import Films from './pages/Films';
+import Contact from './pages/Contact';
+import Series from './pages/Series';
 import logo from './images/logo.png';
 import image1 from './images/image1.png';
 import image2 from './images/image2.png';
@@ -20,29 +23,47 @@ import videoA from './videos/videoA.mp4';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [subscriptionPlan, setSubscriptionPlan] = useState('basic'); // Peut être 'basic', 'standard' ou 'premium'
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Utilisation de useEffect pour initialiser l'état de connexion
   useEffect(() => {
     const token = localStorage.getItem('token');
+    const savedPlan = localStorage.getItem('subscriptionPlan');
     if (token) {
       setIsLoggedIn(true);
+      setSubscriptionPlan(savedPlan || 'basic'); // Plan par défaut si non spécifié
     }
   }, []);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
-  // Consolidation de handleLogin et handleLogout
-  const handleLogin = () => {
-    localStorage.setItem('token', 'sample-token'); // Stockage d'un token simulé
+  const handleLogin = (plan) => {
+    localStorage.setItem('token', 'sample-token'); // Stocke un token simulé
+    localStorage.setItem('subscriptionPlan', plan);
     setIsLoggedIn(true);
+    setSubscriptionPlan(plan);
     setIsMenuOpen(false);
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('token'); // Suppression du token
+    localStorage.removeItem('token');
+    localStorage.removeItem('subscriptionPlan');
     setIsLoggedIn(false);
+    setSubscriptionPlan(null);
     setIsMenuOpen(false);
+  };
+
+  const ProtectedRoute = ({ children, requiredPlan }) => {
+    if (!isLoggedIn) {
+      return <Navigate to="/" />;
+    }
+    if (subscriptionPlan !== 'premium' && requiredPlan === 'premium') {
+      return <Navigate to="/" />;
+    }
+    if (subscriptionPlan === 'basic' && requiredPlan === 'standard') {
+      return <Navigate to="/" />;
+    }
+    return children;
   };
 
   return (
@@ -62,8 +83,9 @@ function App() {
           <nav>
             <ul className="nav-links">
               <li><Link to="/">Accueil</Link></li>
-              <li><Link to="/series">Series</Link></li>
-              <li><Link to="/films">Films</Link></li>
+              {isLoggedIn && <li><Link to="/films">Films</Link></li>}
+              {isLoggedIn && subscriptionPlan !== 'basic' && <li><Link to="/contact">Contact</Link></li>}
+              {isLoggedIn && subscriptionPlan === 'premium' && <li><Link to="/series">Series</Link></li>}
               <li className="user-menu" onClick={toggleMenu}>
                 {isLoggedIn ? 'Gestion Utilisateur' : 'Connexion / Inscription'}
                 <ul className={`dropdown ${isMenuOpen ? 'open' : ''}`}>
@@ -88,7 +110,22 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/register" element={<SignUpPage />} />
-          <Route path="/login" element={<Login onLoginSuccess={handleLogin} />} />
+          <Route path="/login" element={<Login onLoginSuccess={(plan) => handleLogin(plan)} />} />
+          <Route path="/films" element={
+            <ProtectedRoute requiredPlan="basic">
+              <Films />
+            </ProtectedRoute>
+          } />
+          <Route path="/contact" element={
+            <ProtectedRoute requiredPlan="standard">
+              <Contact />
+            </ProtectedRoute>
+          } />
+          <Route path="/series" element={
+            <ProtectedRoute requiredPlan="premium">
+              <Series />
+            </ProtectedRoute>
+          } />
         </Routes>
 
         {/* Hero Section */}
@@ -101,7 +138,7 @@ function App() {
           </div>
         </section>
 
-        {/* Learning Modules */}
+        {/* Modules de Films */}
         <section className="modules">
           {/* Module: Histoire de la Révolution Française */}
           <div className="module">
@@ -113,7 +150,7 @@ function App() {
             </div>
           </div>
 
-          {/* Module: Introduction à l'Astronomie */}
+	  {/* Module: Introduction à l'Astronomie */}
           <div className="module">
             <h2>Introduction à l'Astronomie</h2>
             <div className="films-row">
@@ -132,6 +169,7 @@ function App() {
               <div className="film"><img src={image9} alt="film 9" /><p>The Picasso Legacy (2016)</p></div>
             </div>
           </div>
+          {/* ... */}
         </section>
 
         {/* Footer */}
@@ -144,7 +182,6 @@ function App() {
               <li><a href="#email">Email</a></li>
             </ul>
           </div>
-
           <div className="footer-section">
             <h4>Guide</h4>
             <ul>
@@ -168,6 +205,7 @@ function App() {
             </ul>
           </div>
         </footer>
+
         <div className="right-copy">
           <p className="copyright">&copy; 2024 Learn and Films. Tous droits réservés.</p>
         </div>
