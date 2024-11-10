@@ -25,11 +25,24 @@ def add_film_api(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+def convert_to_embed_url(url):
+    """
+    Convertir une URL YouTube classique en URL d'intégration (embed).
+    """
+    video_id = url.split('v=')[-1]
+    return f'https://www.youtube.com/embed/{video_id}'
+
 @api_view(['GET'])
 def film_list(request):
     films = Film.objects.all()
+    
+    # Convertir chaque URL de vidéo en format d'intégration (embed)
+    for film in films:
+        film.video_link = convert_to_embed_url(film.video_link)
+
     serializer = FilmSerializer(films, many=True)
     return Response(serializer.data)
+
 
 @api_view(['GET'])
 def play_film(request, film_id):

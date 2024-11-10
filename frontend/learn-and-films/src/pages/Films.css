@@ -1,14 +1,39 @@
-.films-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+.films-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));  /* Crée une grille flexible */
+    gap: 20px;  /* Espacement entre les éléments */
+    padding: 20px;
 }
-.film-card {
-  cursor: pointer;
-  width: 200px;
-  text-align: center;
+
+.film-item {
+    border: 1px solid #ccc;  /* Bordure légère autour des éléments */
+    border-radius: 8px;  /* Coins arrondis */
+    padding: 10px;
+    background-color: #f9f9f9;  /* Fond clair pour chaque film */
+    text-align: center;
 }
-.video-player {
-  margin-top: 20px;
+
+.film-video iframe {
+    border-radius: 8px;  /* Coins arrondis pour les vidéos */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Ombre légère autour des vidéos */
+}
+
+.film-item h3 {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.film-item button {
+    background-color: #007bff;  /* Bouton avec couleur bleue */
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.film-item button:hover {
+    background-color: #0056b3;  /* Changer la couleur du bouton au survol */
 }
 
