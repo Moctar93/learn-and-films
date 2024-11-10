@@ -18,14 +18,17 @@ from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import redirect
 from users.homepage import homepage
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('users.urls')),
     path('api/', include('subscriptions.urls')),
     path('subscriptions/', include('subscriptions.urls')),
+    path('films/', include('films.urls')),
     path('', homepage, name='homepage'),  # Page d'accueil
      path('accounts/', include('django.contrib.auth.urls')),  # Ajouter les URL d'authentification par défaut
     #path('register/', views.register, name='register'),  # Appelle la vue d'inscription
     path('', lambda request: redirect('api/users/register/')),  # Redirection vers l'inscription
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

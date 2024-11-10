@@ -1,0 +1,14 @@
+.films-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.film-card {
+  cursor: pointer;
+  width: 200px;
+  text-align: center;
+}
+.video-player {
+  margin-top: 20px;
+}
+

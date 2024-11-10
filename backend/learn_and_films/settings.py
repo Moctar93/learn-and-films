@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 import paypalrestsdk
 
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'subscriptions',
     'corsheaders',
     'rest_framework.authtoken',
+    'films',
 ]
 
 MIDDLEWARE = [
@@ -138,10 +139,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'learn_and_films', 'static')]
 LOGIN_URL = '/subscriptions/login/'
 #LOGIN_URL = '/accounts/login/'  # URL de la page de connexion
 LOGIN_REDIRECT_URL = '/subscriptions/success/'  # URL de redirection après connexion
-
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
