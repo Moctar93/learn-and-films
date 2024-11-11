@@ -11,6 +11,7 @@ import FilmPlayer from './pages/FilmPlayer';
 import Contact from './pages/Contact';
 import Series from './pages/Series';
 import AddFilm from './pages/AddFilm';
+import UsersPage from './pages/UsersPage';
 import logo from './images/logo.png';
 import image1 from './images/image1.png';
 import image2 from './images/image2.png';
@@ -89,6 +90,7 @@ function App() {
               {isLoggedIn && <li><Link to="/films">Films</Link></li>}
               {isLoggedIn && subscriptionPlan !== 'basic' && <li><Link to="/contact">Contact</Link></li>}
               {isLoggedIn && subscriptionPlan === 'premium' && <li><Link to="/series">Series</Link></li>}
+	      {isLoggedIn && <li><Link to="/users">Liste des Utilisateurs</Link></li>}
               <li className="user-menu" onClick={toggleMenu}>
                 {isLoggedIn ? 'Gestion Utilisateur' : 'Connexion / Inscription'}
                 <ul className={`dropdown ${isMenuOpen ? 'open' : ''}`}>
@@ -115,6 +117,7 @@ function App() {
           <Route path="/register" element={<SignUpPage />} />
 	  <Route path="/add-film" element={<AddFilm />} />
 	  <Route path="/films/:film_id/play" element={<FilmPlayer />} />
+	  <Route path="/users" element={<UsersPage />} />
           <Route path="/login" element={<Login onLoginSuccess={(plan) => handleLogin(plan)} />} />
           <Route path="/films" element={
             <ProtectedRoute requiredPlan="basic">
@@ -149,8 +152,14 @@ function App() {
           <div className="module">
             <h2>Apprendre l'Histoire : La Révolution Française</h2>
             <div className="films-row">
-              <div className="film"><img src={image1} alt="film 1" /><p>Les Misérables (2019)</p></div>
-              <div className="film"><img src={image2} alt="film 2" /><p>La Révolution Française (1989)</p></div>
+              <div className="film"><Link to="/films/1/play">
+      <img src={image1} alt="film 1" />
+      <p>Les Misérables (2019)</p>
+    </Link></div>
+              <div className="film"><Link to="/films/2/play">
+      <img src={image2} alt="film 2" />
+      <p>La Révolution Française (1989)</p>
+    </Link></div>
               <div className="film"><img src={image3} alt="film 3" /><p>Marie-Antoinette (2006)</p></div>
             </div>
           </div>
@@ -214,9 +223,6 @@ function App() {
         <div className="right-copy">
           <p className="copyright">&copy; 2024 Learn and Films. Tous droits réservés.</p>
         </div>
-
-        {/* Affichage du composant UserList */}
-        <UserList />
       </div>
     </Router>
   );

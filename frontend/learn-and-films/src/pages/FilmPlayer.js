@@ -20,24 +20,24 @@ function FilmPlayer() {
     if (!film) return <div>Chargement...</div>;
 
     // URL de la vidéo YouTube
-    const youtubeUrl = film.video_url;  // Assurez-vous que l'URL de YouTube est correcte et complète
+    const youtubeUrl = film.video_url;
 
     // Extraire l'ID de la vidéo YouTube à partir de l'URL
-    const videoId = youtubeUrl.split('v=')[1].split('&')[0];
+    const videoId = youtubeUrl.includes('v=') ? youtubeUrl.split('v=')[1].split('&')[0] : youtubeUrl;
 
     return (
         <div className="film-player">
             <h1>{film.title}</h1>
             <div className="video-container">
                 {/* Intégration de la vidéo YouTube via iframe */}
-                <iframe 
-                    width="100%" 
-                    height="500px" 
-                    src={`https://www.youtube.com/embed/${videoId}`} 
-                    frameBorder="0" 
-                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
-                    allowFullScreen>
-                </iframe>
+                <iframe
+                    width="100%"
+                    height="500px"
+                    src={`https://www.youtube.com/embed/${videoId}`}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                ></iframe>
             </div>
         </div>
     );
