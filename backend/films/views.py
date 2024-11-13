@@ -1,11 +1,12 @@
 # views.py
 from django.shortcuts import render, redirect
 from .forms import FilmForm
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from .models import Film
 from .serializers import FilmSerializer
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
+from rest_framework.permissions import IsAuthenticated
 
 def add_film(request):
     if request.method == 'POST':
@@ -33,6 +34,7 @@ def convert_to_embed_url(url):
     return f'https://www.youtube.com/embed/{video_id}'
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def film_list(request):
     films = Film.objects.all()
     
@@ -45,6 +47,7 @@ def film_list(request):
 
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def play_film(request, film_id):
     film = get_object_or_404(Film, id=film_id)
     return Response({'title': film.title, 'video_url': film.video_link})

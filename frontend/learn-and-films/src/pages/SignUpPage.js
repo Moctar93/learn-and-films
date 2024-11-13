@@ -8,7 +8,7 @@ function SignUpPage() {
   const [password, setPassword] = useState('');
   const [subscription, setSubscription] = useState('basic');
   const [error, setError] = useState('');
-  const [isPaid, setIsPaid] = useState(false); // Suivi du paiement
+  const [isPaid, setIsPaid] = useState(false);
   const navigate = useNavigate();
 
   const handleSignUp = async (e) => {
@@ -26,10 +26,12 @@ function SignUpPage() {
     };
 
     try {
+      const token = localStorage.getItem('token'); // Récupère le token d'authentification
       const response = await fetch('http://localhost:8000/api/register/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          ...(token && { Authorization: `Token ${token}` }), // Ajoute le token si présent
         },
         body: JSON.stringify(userData),
       });
@@ -46,43 +48,43 @@ function SignUpPage() {
   };
 
   const loadPayPalButton = () => {
-  if (window.paypal) {
-    window.paypal.Buttons({
-      createOrder: (data, actions) => {
-        return actions.order.create({
-          purchase_units: [{
-            amount: {
-              value: subscription === 'basic' ? '1.00' : subscription === 'standard' ? '2.00' : '3.00'
-            }
-          }]
-        });
-      },
-      onApprove: (data, actions) => {
-        return actions.order.capture().then(details => {
-          setIsPaid(true);
-          setError("");
-          alert("Paiement réussi pour " + details.payer.name.given_name);
-        });
-      },
-      onError: (err) => {
-        setError("Erreur lors du paiement. Veuillez réessayer.");
-      }
-    }).render('#paypal-button');
-  } else {
-    console.error("Le SDK PayPal n'est pas chargé.");
-  }
-};
-
+    if (window.paypal) {
+      window.paypal.Buttons({
+        createOrder: (data, actions) => {
+          return actions.order.create({
+            purchase_units: [{
+              amount: {
+                value: subscription === 'basic' ? '1.00' : subscription === 'standard' ? '2.00' : '3.00',
+              },
+            }],
+          });
+        },
+        onApprove: (data, actions) => {
+          return actions.order.capture().then(details => {
+            setIsPaid(true);
+            setError("");
+            alert("Paiement réussi pour " + details.payer.name.given_name);
+          });
+        },
+        onError: (err) => {
+          setError("Erreur lors du paiement. Veuillez réessayer.");
+        }
+      }).render('#paypal-button');
+    } else {
+      console.error("Le SDK PayPal n'est pas chargé.");
+    }
+  };
 
   React.useEffect(() => {
-  if (!window.paypal) {
-    const script = document.createElement("script");
-    script.onload = loadPayPalButton;
-    document.body.appendChild(script);
-  } else {
-    loadPayPalButton();
-  }
-}, [subscription]);
+    if (!window.paypal) {
+      const script = document.createElement("script");
+      script.src = "https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID";
+      script.onload = loadPayPalButton;
+      document.body.appendChild(script);
+    } else {
+      loadPayPalButton();
+    }
+  }, [subscription]);
 
   return (
     <div className="sign-up-container">

@@ -28,6 +28,15 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}
+
 
 # Application definition
 
@@ -60,7 +69,10 @@ MIDDLEWARE = [
 # Allow frontend's origin
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+
 ]
+
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'learn_and_films.urls'
 
@@ -140,7 +152,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'learn_and_films', 'static')]
-LOGIN_URL = '/subscriptions/login/'
+LOGIN_URL = '/login/'
 #LOGIN_URL = '/accounts/login/'  # URL de la page de connexion
 LOGIN_REDIRECT_URL = '/subscriptions/success/'  # URL de redirection après connexion
 MEDIA_URL = '/media/'

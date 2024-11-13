@@ -12,6 +12,7 @@ import Contact from './pages/Contact';
 import Series from './pages/Series';
 import AddFilm from './pages/AddFilm';
 import UsersPage from './pages/UsersPage';
+import Dashboard from './pages/Dashboard';
 import logo from './images/logo.png';
 import image1 from './images/image1.png';
 import image2 from './images/image2.png';
@@ -86,11 +87,11 @@ function App() {
           <nav>
             <ul className="nav-links">
               <li><Link to="/">Accueil</Link></li>
-	      <li><Link to="/add-film">Ajouter un Film</Link></li>
+	     {/* <li><Link to="/add-film">Ajouter un Film</Link></li> */}
               {isLoggedIn && <li><Link to="/films">Films</Link></li>}
               {isLoggedIn && subscriptionPlan !== 'basic' && <li><Link to="/contact">Contact</Link></li>}
               {isLoggedIn && subscriptionPlan === 'premium' && <li><Link to="/series">Series</Link></li>}
-	      {isLoggedIn && <li><Link to="/users">Liste des Utilisateurs</Link></li>}
+	     {/* {isLoggedIn && <li><Link to="/users">Liste des Utilisateurs</Link></li>} */}
               <li className="user-menu" onClick={toggleMenu}>
                 {isLoggedIn ? 'Gestion Utilisateur' : 'Connexion / Inscription'}
                 <ul className={`dropdown ${isMenuOpen ? 'open' : ''}`}>
@@ -118,6 +119,7 @@ function App() {
 	  <Route path="/add-film" element={<AddFilm />} />
 	  <Route path="/films/:film_id/play" element={<FilmPlayer />} />
 	  <Route path="/users" element={<UsersPage />} />
+	  <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/login" element={<Login onLoginSuccess={(plan) => handleLogin(plan)} />} />
           <Route path="/films" element={
             <ProtectedRoute requiredPlan="basic">

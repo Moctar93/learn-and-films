@@ -5,19 +5,32 @@ import axios from 'axios';
 function FilmPlayer() {
     const { film_id } = useParams();
     const [film, setFilm] = useState(null);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        // Récupérer les détails du film via l'API
-        axios.get(`${process.env.REACT_APP_BACKEND_URL}/films/${film_id}/play/`)
-            .then(response => {
-                setFilm(response.data);
-            })
-            .catch(error => {
-                console.error('Erreur lors de la récupération du film:', error);
-            });
+        // Récupérer le token d'authentification depuis le localStorage
+        const token = localStorage.getItem("token");
+
+        // Récupérer les détails du film via l'API avec le token dans les headers
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/films/${film_id}/play/`, {
+            headers: token ? { Authorization: `Token ${token}` } : {},
+            withCredentials: true, // Si l'authentification repose sur des cookies
+        })
+        .then(response => {
+            setFilm(response.data);
+            setError(null); // Réinitialise les erreurs en cas de succès
+        })
+        .catch(error => {
+            console.error('Erreur lors de la récupération du film:', error);
+            setError("Impossible de récupérer les détails du film. Vérifiez votre connexion.");
+        });
     }, [film_id]);
 
-    if (!film) return <div>Chargement...</div>;
+    // Si le film n'est pas encore chargé et qu'il n'y a pas d'erreur, affiche un message de chargement
+    if (!film && !error) return <div>Chargement...</div>;
+
+    // Si une erreur est présente, affiche le message d'erreur
+    if (error) return <div className="error-message">{error}</div>;
 
     // URL de la vidéo YouTube
     const youtubeUrl = film.video_url;

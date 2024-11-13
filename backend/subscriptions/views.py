@@ -17,10 +17,10 @@ paypalrestsdk.configure({
 
 @login_required
 def create_subscription(request, plan):
-    # Montant en fonction du plan choisi
+    # Définir le montant en fonction du plan choisi
     amount = "1.00" if plan == "basic" else "2.00" if plan == "standard" else "3.00"
 
-    # Créer un paiement PayPal
+    # Configurer les informations de paiement pour PayPal
     payment = paypalrestsdk.Payment({
         "intent": "sale",
         "payer": {
@@ -39,8 +39,8 @@ def create_subscription(request, plan):
         }]
     })
 
+    # Création du paiement et redirection vers PayPal pour approbation
     if payment.create():
-        # Redirection vers PayPal pour l'approbation du paiement
         for link in payment.links:
             if link.rel == "approval_url":
                 return redirect(link.href)

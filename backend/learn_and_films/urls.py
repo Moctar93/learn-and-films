@@ -20,6 +20,7 @@ from django.shortcuts import redirect
 from users.homepage import homepage
 from django.conf.urls.static import static
 from django.conf import settings
+from users.views import user_dashboard
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,8 +28,9 @@ urlpatterns = [
     path('api/', include('subscriptions.urls')),
     path('subscriptions/', include('subscriptions.urls')),
     path('films/', include('films.urls')),
+    path('user/dashboard/', user_dashboard, name='user_dashboard'),
     path('', homepage, name='homepage'),  # Page d'accueil
-     path('accounts/', include('django.contrib.auth.urls')),  # Ajouter les URL d'authentification par défaut
+    path('accounts/', include('django.contrib.auth.urls')),  # Ajouter les URL d'authentification par défaut
     #path('register/', views.register, name='register'),  # Appelle la vue d'inscription
     path('', lambda request: redirect('api/users/register/')),  # Redirection vers l'inscription
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
